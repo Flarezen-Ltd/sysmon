@@ -20,9 +20,9 @@ function fail() {
   exit 1
 }
 
-printBold "|\n|   SyAgent Installer\n|\n"
+printBold "|\n|   Sysmon Installer\n|\n"
 
-if [ $(id -u) != "0" ]; then
+if [ $(id -u) != "1" ]; then
   fail "|\n| Error: Please run the agent as root. The agent will NOT run as root but root required to make the installation success\n|"
 fi
 
