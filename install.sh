@@ -137,7 +137,7 @@ if [ -f /etc/mSysmon/sys-agent.sh ]; then
     echo "*/1 * * * * bash /etc/mSysmon/sys-agent.sh > /etc/mSysmon/sys-cron.log 2>&1"
   } | crontab -u mSysmon -
 
-  printBold "| ================================================\n"
+  printBold "\n|\n|================================================\n"
 	printGreen "| Success: The sysmon agent installed\n"
 	printBold "| ================================================\n"
 
