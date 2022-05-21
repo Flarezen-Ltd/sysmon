@@ -93,9 +93,20 @@ elif [ -z "$(ps -Al | grep crond | grep -v grep)" ]; then
 fi
 
 pkgname=wget
-which $pkgname >/dev/null 2>&1;isPackage=$?
-if [ $isPackage != 0 ];then
+which $pkgname >/dev/null 2>&1
+isPackage=$?
+if [ $isPackage != 0 ]; then
   echo "|" && read -p "|   Sysmon needs wget. Do you want to install it? [Y/n] " input_variable_install
+  if [ -z $input_variable_service ] || [ $input_variable_service == "Y" ] || [ $input_variable_service == "y" ]; then
+    if [ -n "$(command -v apt-get)" ]; then
+      apt-get -y update
+      apt-get -y install wget
+    elif [ -n "$(command -v pacman)" ]; then
+      pacman -S --noconfirm wget
+    elif [ -n "$(command -v yum)" ]; then
+      yum -y install wget
+    fi
+  fi
 fi
 
 if [ -f /etc/mSysmon/sys-agent.sh ]; then
