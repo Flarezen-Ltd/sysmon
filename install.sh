@@ -21,7 +21,7 @@ function fail() {
 }
 
 printBold "| ================================================\n"
-printBold "|\n|   Sysmon Installer\n|\n"
+printBold "|   Sysmon Installer | Version: 0.0.1\n"
 printBold "| ================================================\n"
 
 
@@ -124,7 +124,7 @@ fi
 
 mkdir -p /etc/mSysmon
 
-printBold "|\n|\n   Downloading sys-agent.sh to /etc/mSysmon\n|\n|   + $(wget -nv -o /dev/stdout -O /etc/mSysmon/sys-agent.sh --no-check-certificate https://raw.githubusercontent.com/Flarezen-Ltd/sysmon-agent/master/sys-agent.sh)"
+printBold "|\n|\n|   Downloading sys-agent.sh to /etc/mSysmon\n|\n|   + $(wget -nv -o /dev/stdout -O /etc/mSysmon/sys-agent.sh --no-check-certificate https://raw.githubusercontent.com/Flarezen-Ltd/sysmon-agent/master/sys-agent.sh)"
 
 if [ -f /etc/mSysmon/sys-agent.sh ]; then
   echo "$1" >/etc/mSysmon/sys-auth.log
