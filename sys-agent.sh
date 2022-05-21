@@ -168,10 +168,12 @@ tx_gap=$(sed_rt $(to_num "$tx_gap"))
 load_cpu=$(sed_rt $(to_num "$load_cpu"))
 load_io=$(sed_rt $(to_num "$load_io"))
 
+echo "" > /etc/mSysmon/disk-info.log
+rm -rf disk-info.log
+
 for di in $(lsblk -dnpl -o NAME | grep -v '^/dev/sr'); do
   printf "Getting disk S.M.A.R.T. status: $di\n"
   printf "=======================================\n"
-  rm -rf disk-info.log
   sudo smartctl --json --all $di >>/etc/mSysmon/disk-info.log
   echo "DISKSEPARATOR" >>/etc/mSysmon/disk-info.log
   printf "Disk ($di) info received successfully.\n"
