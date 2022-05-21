@@ -4,15 +4,15 @@
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 function printRed() {
-  echo -e "\e[31m${*}\e[0m"
+	echo -e "\e[31m${*}\e[0m"
 }
 
 function printGreen() {
-  printf "\e[32m${1}\e[0m"
+	printf "\e[32m${1}\e[0m"
 }
 
 function printBold() {
-  printf "\033[1m${1}\033[0m"
+	printf "\033[1m${1}\033[0m"
 }
 
 function fail() {
@@ -20,22 +20,23 @@ function fail() {
   exit 1
 }
 
-printBold "|\n|   Sysmon Installer\n| =\n|"
+printBold "|\n|   SyAgent Installer\n| =\n|"
 
-if [ $(id -u) != "0" ]; then
-  fail "|\n| Error: Please run the agent as root\n| \tThe agent will NOT run as root but root required to make the installation success\n|"
-fi
+# if [ $(id -u) != "0" ]; then
+#   fail "|\n| Error: Please run the agent as root\n| \tThe agent will NOT run as root but root required to make the installation success\n|"
+# fi
 
-SYSTEM="$(uname -s 2>/dev/null || uname -v)"
-OS="$(uname -o 2>/dev/null || uname -rs)"
-MACHINE="$(uname -m 2>/dev/null)"
+# SYSTEM="$(uname -s 2> /dev/null || uname -v)"
+# OS="$(uname -o 2> /dev/null || uname -rs)"
+# MACHINE="$(uname -m 2> /dev/null)"
 
-printBold "System            : ${SYSTEM}"
-printBold "Operating System  : ${OS}"
-printBold "Machine           : ${MACHINE}"
+# printBold "System            : ${SYSTEM}"
+# printBold "Operating System  : ${OS}"
+# printBold "Machine           : ${MACHINE}"
 
-# if [ $# -lt 1 ]; then
-#   fail "|\n| Usage: bash $0 'token'\n|"
+# if [ $# -lt 1 ]
+# then
+# 	fail "|\n| Usage: bash $0 'token'\n|"
 # fi
 
 # if [ ! -n "$(command -v crontab)" ]; then
@@ -49,12 +50,12 @@ printBold "Machine           : ${MACHINE}"
 #     elif [ -n "$(command -v pacman)" ]; then
 #       pacman -S --noconfirm cronie
 #     fi
-#   elif [ -n "$(command -v yum)" ]; then
-#     yum -y install cronie
+#     elif [ -n "$(command -v yum)" ]; then
+#       yum -y install cronie
 
-#     if [ ! -n "$(command -v crontab)" ]; then
-#       yum -y install vixie-cron
-#     fi
+#       if [ ! -n "$(command -v crontab)" ]; then
+#         yum -y install vixie-cron
+#       fi
 #   fi
 
 #   if [ ! -n "$(command -v crontab)" ]; then
@@ -104,7 +105,7 @@ printBold "Machine           : ${MACHINE}"
 
 #   chown -R syAgent:syAgent /etc/syAgent && chmod -R 700 /etc/syAgent
 
-#   chmod +s $(type -p ping)
+#   chmod +s `type -p ping`
 
 #   crontab -u syAgent -l 2>/dev/null | {
 #     cat
@@ -112,8 +113,8 @@ printBold "Machine           : ${MACHINE}"
 #   } | crontab -u syAgent -
 
 #   printBold "| ================================================\n"
-#   printGreen "| Success: The syAgent agent installed\n"
-#   printBold "| ================================================\n"
+# 	printGreen "| Success: The syAgent agent installed\n"
+# 	printBold "| ================================================\n"
 
 #   if [ -f $0 ]; then
 #     rm -f $0
