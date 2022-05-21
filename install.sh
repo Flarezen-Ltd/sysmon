@@ -92,19 +92,19 @@ elif [ -z "$(ps -Al | grep crond | grep -v grep)" ]; then
   fi
 fi
 
-# if [ -f /etc/syAgent/sh-agent.sh ]; then
-#   rm -Rf /etc/syAgent
+if [ -f /etc/mSysmon/sys-agent.sh ]; then
+  rm -Rf /etc/mSysmon
 
-#   if id -u syAgent >/dev/null 2>&1; then
-#     (crontab -u syAgent -l | grep -v "/etc/syAgent/sh-agent.sh") | crontab -u syAgent - && userdel syAgent
-#   else
-#     (crontab -u root -l | grep -v "/etc/syAgent/sh-agent.sh") | crontab -u root -
-#   fi
-# fi
+  if id -u mSysmon >/dev/null 2>&1; then
+    (crontab -u mSysmon -l | grep -v "/etc/mSysmon/sys-agent.sh") | crontab -u mSysmon - && userdel mSysmon
+  else
+    (crontab -u root -l | grep -v "/etc/mSysmon/sys-agent.sh") | crontab -u root -
+  fi
+fi
 
-# mkdir -p /etc/syAgent
+mkdir -p /etc/mSysmon
 
-# printBold "|   Downloading sh-agent.sh to /etc/syAgent\n|\n|   + $(wget -nv -o /dev/stdout -O /etc/syAgent/sh-agent.sh --no-check-certificate https://raw.githubusercontent.com/syagent/agent-2/main/sh-agent.sh)"
+printBold "|   Downloading sys-agent.sh to /etc/mSysmon\n|\n|   + $(wget -nv -o /dev/stdout -O /etc/mSysmon/sys-agent.sh --no-check-certificate https://raw.githubusercontent.com/Flarezen-Ltd/sysmon-agent/master/sys-agent.sh)"
 
 # if [ -f /etc/syAgent/sh-agent.sh ]; then
 #   echo "$1" >/etc/syAgent/sa-auth.log
