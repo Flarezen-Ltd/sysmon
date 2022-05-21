@@ -4,15 +4,15 @@
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
 function printRed() {
-	echo -e "\e[31m${*}\e[0m"
+  echo -e "\e[31m${*}\e[0m"
 }
 
 function printGreen() {
-	printf "\e[32m${1}\e[0m"
+  printf "\e[32m${1}\e[0m"
 }
 
 function printBold() {
-	printf "\033[1m${1}\033[0m"
+  printf "\033[1m${1}\033[0m"
 }
 
 function fail() {
@@ -26,58 +26,53 @@ if [ $(id -u) != "0" ]; then
   fail "|\n| Error: Please run the agent as root. The agent will NOT run as root but root required to make the installation success\n|"
 fi
 
-SYSTEM="$(uname -s 2> /dev/null || uname -v)"
-OS="$(uname -o 2> /dev/null || uname -rs)"
-MACHINE="$(uname -m 2> /dev/null)"
+SYSTEM="$(uname -s 2>/dev/null || uname -v)"
+OS="$(uname -o 2>/dev/null || uname -rs)"
+MACHINE="$(uname -m 2>/dev/null)"
 
 printBold "System            : ${SYSTEM}\n"
 printBold "Operating System  : ${OS}\n"
 printBold "Machine           : ${MACHINE}\n"
 
-# if [ $# -lt 1 ]
-# then
-# 	fail "|\n| Usage: bash $0 'token'\n|"
-# fi
+if [ $# -lt 1 ]; then
+  fail "|\n| Usage: bash $0 'token'\n|"
+fi
 
-# if [ ! -n "$(command -v crontab)" ]; then
+if [ ! -n "$(command -v crontab)" ]; then
+  echo "|" && read -p "|   Sysmon needs cron. Do you want to install it? [Y/n] " input_variable_install
 
-#   echo "|" && read -p "|   SyAgent needs cron. Do you want to install it? [Y/n] " input_variable_install
+  if [ -z $input_variable_install ] || [ $input_variable_install == "Y" ] || [ $input_variable_install == "y" ]; then
+    if [ -n "$(command -v apt-get)" ]; then
+      apt-get -y update
+      apt-get -y install cron
+    elif [ -n "$(command -v pacman)" ]; then
+      pacman -S --noconfirm cronie
+    elif [ -n "$(command -v yum)" ]; then
+      yum -y install cronie
+      if [ ! -n "$(command -v crontab)" ]; then
+        yum -y install vixie-cron
+      fi
+  fi
 
-#   if [ -z $input_variable_install ] || [ $input_variable_install == "Y" ] || [ $input_variable_install == "y" ]; then
-#     if [ -n "$(command -v apt-get)" ]; then
-#       apt-get -y update
-#       apt-get -y install cron
-#     elif [ -n "$(command -v pacman)" ]; then
-#       pacman -S --noconfirm cronie
-#     fi
-#     elif [ -n "$(command -v yum)" ]; then
-#       yum -y install cronie
+  if [ ! -n "$(command -v crontab)" ]; then
+    fail "|\n|   Error: Cannot install CronTab, please install the CronTab and run the script again\n|"
+  fi
+fi
 
-#       if [ ! -n "$(command -v crontab)" ]; then
-#         yum -y install vixie-cron
-#       fi
-#   fi
+if [ -z "$(ps -Al | grep cron | grep -v grep)" ]; then
+  echo "|" && read -p "|   Cron is is down. Do you want to start it? [Y/n] " input_variable_service
 
-#   if [ ! -n "$(command -v crontab)" ]; then
-#     fail "|\n|   Error: Cannot install CronTab, please install the CronTab and run the script again\n|"
-#   fi
-# fi
-
-# if [ -z "$(ps -Al | grep cron | grep -v grep)" ]; then
-
-#   echo "|" && read -p "|   Cron is is down. Do you want to start it? [Y/n] " input_variable_service
-
-#   if [ -z $input_variable_service ] || [ $input_variable_service == "Y" ] || [ $input_variable_service == "y" ]; then
-#     if [ -n "$(command -v apt-get)" ]; then
-#       service cron start
-#     elif [ -n "$(command -v yum)" ]; then
-#       chkconfig crond on
-#       service crond start
-#     elif [ -n "$(command -v pacman)" ]; then
-#       systemctl start cronie
-#       systemctl enable cronie
-#     fi
-#   fi
+  if [ -z $input_variable_service ] || [ $input_variable_service == "Y" ] || [ $input_variable_service == "y" ]; then
+    if [ -n "$(command -v apt-get)" ]; then
+      service cron start
+    elif [ -n "$(command -v yum)" ]; then
+      chkconfig crond on
+      service crond start
+    elif [ -n "$(command -v pacman)" ]; then
+      systemctl start cronie
+      systemctl enable cronie
+    fi
+  fi
 
 #   if [ -z "$(ps -Al | grep cron | grep -v grep)" ]; then
 #     fail "|\n|   Error: Error when trying to start the Cron\n|"
