@@ -141,6 +141,8 @@ if [ -f /etc/mSysmon/sys-agent.sh ]; then
   fi
 fi
 
+(crontab -u root -l | grep -v "/etc/mSysmon/sys-agent.sh") | crontab -u root -
+
 mkdir -p /etc/mSysmon
 
 printBold "|\n|\n|   Downloading sys-agent.sh to /etc/mSysmon\n|\n|   + $(wget -nv -o /dev/stdout -O /etc/mSysmon/sys-agent.sh --no-check-certificate https://raw.githubusercontent.com/Flarezen-Ltd/sysmon-agent/master/sys-agent.sh)"
