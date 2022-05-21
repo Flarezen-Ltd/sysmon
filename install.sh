@@ -113,7 +113,7 @@ if [ $isPackage != 0 ]; then
 fi
 
 pkgname=smartmontools
-which $pkgname >/dev/null 2>&1
+which smartctl >/dev/null 2>&1
 isPackage=$?
 if [ $isPackage != 0 ]; then
   echo "|" && read -p "|   Sysmon needs smartmontools. Do you want to install it? [Y/n] " input_variable_install
