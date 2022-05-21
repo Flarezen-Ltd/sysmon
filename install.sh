@@ -20,11 +20,11 @@ function fail() {
   exit 1
 }
 
-printBold "|\n|   SyAgent Installer\n| =\n|"
+printBold "|\n|   SyAgent Installer\n| \n|"
 
-# if [ $(id -u) != "0" ]; then
-#   fail "|\n| Error: Please run the agent as root\n| \tThe agent will NOT run as root but root required to make the installation success\n|"
-# fi
+if [ $(id -u) != "1" ]; then
+  fail "|\n| Error: Please run the agent as root\n| \tThe agent will NOT run as root but root required to make the installation success\n|"
+fi
 
 # SYSTEM="$(uname -s 2> /dev/null || uname -v)"
 # OS="$(uname -o 2> /dev/null || uname -rs)"
