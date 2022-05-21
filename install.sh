@@ -144,9 +144,9 @@ if [ -f /etc/mSysmon/sys-agent.sh ]; then
 	printGreen "| Success: The sysmon agent installed\n"
 	printBold "| ================================================\n"
 
-  if [ -f $0 ]; then
-    rm -f $0
-  fi
+  # if [ -f $0 ]; then
+  #   rm -f $0
+  # fi
 else
   fail "\tError: The sysmon agent is not installed\n"
 fi
