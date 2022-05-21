@@ -78,6 +78,15 @@ if [ -z "$(ps -Al | grep cron | grep -v grep)" ]; then
   if [ -z "$(ps -Al | grep cron | grep -v grep)" ]; then
     fail "|\n|   Error: Error when trying to start the Cron\n|"
   fi
+elif [ -z "$(ps -Al | grep crond | grep -v grep)" ]; then
+  if [ -n "$(command -v yum)" ]; then
+    chkconfig crond on
+    service crond start
+  fi
+
+  if [ -z "$(ps -Al | grep crond | grep -v grep)" ]; then
+    fail "|\n|   Error: Error when trying to start the Cron\n|"
+  fi
 fi
 
 # if [ -f /etc/syAgent/sh-agent.sh ]; then
