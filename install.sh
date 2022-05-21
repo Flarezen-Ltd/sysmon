@@ -22,17 +22,17 @@ function fail() {
 
 printBold "|\n|   Sysmon Installer\n|\n"
 
-if [ $(id -u) != "1" ]; then
+if [ $(id -u) != "0" ]; then
   fail "|\n| Error: Please run the agent as root. The agent will NOT run as root but root required to make the installation success\n|"
 fi
 
-# SYSTEM="$(uname -s 2> /dev/null || uname -v)"
-# OS="$(uname -o 2> /dev/null || uname -rs)"
-# MACHINE="$(uname -m 2> /dev/null)"
+SYSTEM="$(uname -s 2> /dev/null || uname -v)"
+OS="$(uname -o 2> /dev/null || uname -rs)"
+MACHINE="$(uname -m 2> /dev/null)"
 
-# printBold "System            : ${SYSTEM}"
-# printBold "Operating System  : ${OS}"
-# printBold "Machine           : ${MACHINE}"
+printBold "System            : ${SYSTEM}"
+printBold "Operating System  : ${OS}"
+printBold "Machine           : ${MACHINE}"
 
 # if [ $# -lt 1 ]
 # then
