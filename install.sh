@@ -79,9 +79,12 @@ if [ -z "$(ps -Al | grep cron | grep -v grep)" ]; then
     fail "|\n|   Error: Error when trying to start the Cron\n|"
   fi
 elif [ -z "$(ps -Al | grep crond | grep -v grep)" ]; then
-  if [ -n "$(command -v yum)" ]; then
-    chkconfig crond on
-    service crond start
+  echo "|" && read -p "|   Cron is is down. Do you want to start it? [Y/n] " input_variable_service
+  if [ -z $input_variable_service ] || [ $input_variable_service == "Y" ] || [ $input_variable_service == "y" ]; then
+    if [ -n "$(command -v yum)" ]; then
+      chkconfig crond on
+      service crond start
+    fi
   fi
 
   if [ -z "$(ps -Al | grep crond | grep -v grep)" ]; then
