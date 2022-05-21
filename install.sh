@@ -20,7 +20,10 @@ function fail() {
   exit 1
 }
 
+printBold "| ================================================\n"
 printBold "|\n|   Sysmon Installer\n|\n"
+printBold "| ================================================\n"
+
 
 if [ $(id -u) != "0" ]; then
   fail "|\n| Error: Please run the agent as root. The agent will NOT run as root but root required to make the installation success\n|"
@@ -121,7 +124,7 @@ fi
 
 mkdir -p /etc/mSysmon
 
-printBold "|   Downloading sys-agent.sh to /etc/mSysmon\n|\n|   + $(wget -nv -o /dev/stdout -O /etc/mSysmon/sys-agent.sh --no-check-certificate https://raw.githubusercontent.com/Flarezen-Ltd/sysmon-agent/master/sys-agent.sh)"
+printBold "|\n|\n   Downloading sys-agent.sh to /etc/mSysmon\n|\n|   + $(wget -nv -o /dev/stdout -O /etc/mSysmon/sys-agent.sh --no-check-certificate https://raw.githubusercontent.com/Flarezen-Ltd/sysmon-agent/master/sys-agent.sh)"
 
 if [ -f /etc/mSysmon/sys-agent.sh ]; then
   echo "$1" >/etc/mSysmon/sys-auth.log
@@ -137,7 +140,7 @@ if [ -f /etc/mSysmon/sys-agent.sh ]; then
     echo "*/1 * * * * bash /etc/mSysmon/sys-agent.sh > /etc/mSysmon/sys-cron.log 2>&1"
   } | crontab -u mSysmon -
 
-  printBold "\n|\n|================================================\n"
+  printBold "\n|\n| ================================================\n"
 	printGreen "| Success: The sysmon agent installed\n"
 	printBold "| ================================================\n"
 
