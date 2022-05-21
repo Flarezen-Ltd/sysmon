@@ -33,9 +33,9 @@ SYSTEM="$(uname -s 2>/dev/null || uname -v)"
 OS="$(uname -o 2>/dev/null || uname -rs)"
 MACHINE="$(uname -m 2>/dev/null)"
 
-printBold "System            : ${SYSTEM}\n"
-printBold "Operating System  : ${OS}\n"
-printBold "Machine           : ${MACHINE}\n"
+printBold "|\n| System            : ${SYSTEM}\n"
+printBold "| Operating System  : ${OS}\n"
+printBold "| Machine           : ${MACHINE}\n"
 
 if [ $# -lt 1 ]; then
   fail "|\n| Usage: bash $0 'token'\n|"
