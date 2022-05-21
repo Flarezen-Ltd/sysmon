@@ -180,7 +180,7 @@ do
 done
 disk_info=($(cat /etc/mSysmon/disk-info.log))
 
-echo $disk_info
+printf "$disk_info"
 
 disk_info=$(sed_rt "$disk_info")
 
