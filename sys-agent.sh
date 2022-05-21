@@ -178,6 +178,9 @@ do
     printf "Disk ($di) info received successfully.\n"
     printf "=======================================\n"
 done
+
+printf "Hello Test"
+
 disk_info=$(sed_rt "$(cat /etc/mSysmon/disk-info.log)")
 
 printf "Disk: $disk_info"
