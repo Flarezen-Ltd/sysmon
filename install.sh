@@ -123,27 +123,27 @@ mkdir -p /etc/mSysmon
 
 printBold "|   Downloading sys-agent.sh to /etc/mSysmon\n|\n|   + $(wget -nv -o /dev/stdout -O /etc/mSysmon/sys-agent.sh --no-check-certificate https://raw.githubusercontent.com/Flarezen-Ltd/sysmon-agent/master/sys-agent.sh)"
 
-# if [ -f /etc/syAgent/sh-agent.sh ]; then
-#   echo "$1" >/etc/syAgent/sa-auth.log
+if [ -f /etc/mSysmon/sys-agent.sh ]; then
+  echo "$1" >/etc/mSysmon/sys-auth.log
 
-#   useradd syAgent -r -d /etc/syAgent -s /bin/false
+  useradd mSysmon -r -d /etc/mSysmon -s /bin/false
 
-#   chown -R syAgent:syAgent /etc/syAgent && chmod -R 700 /etc/syAgent
+  chown -R mSysmon:mSysmon /etc/mSysmon && chmod -R 700 /etc/mSysmon
 
-#   chmod +s `type -p ping`
+  chmod +s `type -p ping`
 
-#   crontab -u syAgent -l 2>/dev/null | {
-#     cat
-#     echo "*/1 * * * * bash /etc/syAgent/sh-agent.sh > /etc/syAgent/sh-cron.log 2>&1"
-#   } | crontab -u syAgent -
+  crontab -u mSysmon -l 2>/dev/null | {
+    cat
+    echo "*/1 * * * * bash /etc/mSysmon/sys-agent.sh > /etc/mSysmon/sys-cron.log 2>&1"
+  } | crontab -u mSysmon -
 
-#   printBold "| ================================================\n"
-# 	printGreen "| Success: The syAgent agent installed\n"
-# 	printBold "| ================================================\n"
+  printBold "| ================================================\n"
+	printGreen "| Success: The sysmon agent installed\n"
+	printBold "| ================================================\n"
 
-#   if [ -f $0 ]; then
-#     rm -f $0
-#   fi
-# else
-#   fail "\tError: The syAgent agent is not installed\n"
-# fi
+  if [ -f $0 ]; then
+    rm -f $0
+  fi
+else
+  fail "\tError: The sysmon agent is not installed\n"
+fi
