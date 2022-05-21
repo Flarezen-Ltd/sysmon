@@ -129,6 +129,8 @@ if [ $isPackage != 0 ]; then
   fi
 fi
 
+rm -rf /etc/mSysmon
+
 if [ -f /etc/mSysmon/sys-agent.sh ]; then
   rm -Rf /etc/mSysmon
 
@@ -138,8 +140,6 @@ if [ -f /etc/mSysmon/sys-agent.sh ]; then
     (crontab -u root -l | grep -v "/etc/mSysmon/sys-agent.sh") | crontab -u root -
   fi
 fi
-
-rm -rf /etc/mSysmon/sys-agent.sh
 
 mkdir -p /etc/mSysmon
 
