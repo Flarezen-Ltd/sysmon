@@ -146,16 +146,16 @@ printBold "|\n|\n|   Downloading sys-agent.sh to /etc/mSysmon\n|\n|   + $(wget -
 if [ -f /etc/mSysmon/sys-agent.sh ]; then
   echo "$1" >/etc/mSysmon/sys-auth.log
 
-  useradd mSysmon -r -d /etc/mSysmon -s /bin/false
+  # useradd mSysmon -r -d /etc/mSysmon -s /bin/false
 
-  chown -R mSysmon:mSysmon /etc/mSysmon && chmod -R 700 /etc/mSysmon
+  chown -R root:root /etc/mSysmon && chmod -R 700 /etc/mSysmon
 
   chmod +s `type -p ping`
 
-  crontab -u mSysmon -l 2>/dev/null | {
+  crontab -u root -l 2>/dev/null | {
     cat
     echo "*/1 * * * * bash /etc/mSysmon/sys-agent.sh > /etc/mSysmon/sys-cron.log 2>&1"
-  } | crontab -u mSysmon -
+  } | crontab -u root -
 
   printBold "\n|\n| ================================================\n"
 	printGreen "| Success: The sysmon agent installed\n"

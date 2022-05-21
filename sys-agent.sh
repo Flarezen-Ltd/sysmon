@@ -173,7 +173,7 @@ do
     printf "Getting disk S.M.A.R.T. status: $di\n"
     printf "=======================================\n"
     rm -rf disk-info.log
-    smartctl --json --all $di >> /etc/mSysmon/disk-info.log
+    sudo smartctl --json --all $di >> /etc/mSysmon/disk-info.log
     echo "DISKSEPARATOR" >> /etc/mSysmon/disk-info.log
     printf "Disk ($di) info received successfully.\n"
     printf "=======================================\n"
