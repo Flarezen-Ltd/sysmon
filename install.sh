@@ -92,6 +92,10 @@ elif [ -z "$(ps -Al | grep crond | grep -v grep)" ]; then
   fi
 fi
 
+if [ ! -n "which wget >/dev/null" ]; then
+  echo "|" && read -p "|   Sysmon needs wget. Do you want to install it? [Y/n] " input_variable_install
+fi
+
 if [ -f /etc/mSysmon/sys-agent.sh ]; then
   rm -Rf /etc/mSysmon
 
