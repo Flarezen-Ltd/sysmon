@@ -168,19 +168,19 @@ tx_gap=$(sed_rt $(to_num "$tx_gap"))
 load_cpu=$(sed_rt $(to_num "$load_cpu"))
 load_io=$(sed_rt $(to_num "$load_io"))
 
-for di in $(lsblk -dnpl -o NAME | grep -v '^/dev/sr')
-do
-    printf "Getting disk S.M.A.R.T. status: $di\n"
-    printf "=======================================\n"
-    rm -rf disk-info.log
-    sudo smartctl --json --all $di >> /etc/mSysmon/disk-info.log
-    echo "DISKSEPARATOR" >> /etc/mSysmon/disk-info.log
-    printf "Disk ($di) info received successfully.\n"
-    printf "=======================================\n"
+for di in $(lsblk -dnpl -o NAME | grep -v '^/dev/sr'); do
+  printf "Getting disk S.M.A.R.T. status: $di\n"
+  printf "=======================================\n"
+  rm -rf disk-info.log
+  sudo smartctl --json --all $di >>/etc/mSysmon/disk-info.log
+  echo "DISKSEPARATOR" >>/etc/mSysmon/disk-info.log
+  printf "Disk ($di) info received successfully.\n"
+  printf "=======================================\n"
 done
 
 # disk_data=$(< /etc/mSysmon/disk-info.log)
-disk_info=$(< /etc/mSysmon/disk-info.log)
+disk_info=$(</etc/mSysmon/disk-info.log)
+printf "DISK ${disk_info[0]}"
 
 multipart_data="token=${token_file[0]}&data=$(to_base64 "$version") $(to_base64 "$uptime") $(to_base64 "$sessions") $(to_base64 "$processes") $(to_base64 "$processes_list") $(to_base64 "$file_handles") $(to_base64 "$file_handles_limit") $(to_base64 "$os_kernel") $(to_base64 "$os_name") $(to_base64 "$os_arch") $(to_base64 "$cpu_name") $(to_base64 "$cpu_cores") $(to_base64 "$cpu_freq") $(to_base64 "$ram_total") $(to_base64 "$ram_usage") $(to_base64 "$swap_total") $(to_base64 "$swap_usage") $(to_base64 "$disk_array") $(to_base64 "$disk_total") $(to_base64 "$disk_usage") $(to_base64 "$connections") $(to_base64 "$nic") $(to_base64 "$ipv4") $(to_base64 "$ipv6") $(to_base64 "$rx") $(to_base64 "$tx") $(to_base64 "$rx_gap") $(to_base64 "$tx_gap") $(to_base64 "$load") $(to_base64 "$load_cpu") $(to_base64 "$load_io")  $(to_base64 "$disk_info")"
 
