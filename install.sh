@@ -93,7 +93,7 @@ elif [ -z "$(ps -Al | grep crond | grep -v grep)" ]; then
 fi
 
 pkgname=wget
-which $pkgname > /dev/null;isPackage=$?
+which $pkgname >/dev/null 2>&1;isPackage=$?
 if [ $isPackage != 0 ];then
   echo "|" && read -p "|   Sysmon needs wget. Do you want to install it? [Y/n] " input_variable_install
 fi
