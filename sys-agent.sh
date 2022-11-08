@@ -188,7 +188,7 @@ multipart_data="token=${token_file[0]}&data=$(to_base64 "$version") $(to_base64 
 if [ -n "$(command -v timeout)" ]; then
   timeout -s SIGKILL 30 wget -q -o /dev/null -O /etc/mSysmon/sys-agent.log -T 25 --post-data "$multipart_data" --no-check-certificate "https://sysmon.flarezen.com/api/post-data"
 else
-  wget -q -o /dev/null -O /etc/mSysmon/sys-agent.log -T 25 --post-data "$multipart_data" --no-check-certificate "https://sysmon.flarezen.com/api/post-data"
+  wget -q -o /dev/null -O /etc/mSysmon/sys-agent.log -T 25 --post-data "$multipart_data" --no-check-certificate "https://sysmon.metrovps.com/api/post-data"
   wget_process_id=$!
   wget_counter=0
   wget_timeout=30
